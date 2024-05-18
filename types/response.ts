@@ -7,6 +7,6 @@ export interface ReturnMany<T> {
 
 export interface ReturnOne<T> {
   success: boolean
-  item: T
+  item?: T | null
   message?: string
 }
