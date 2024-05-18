@@ -19,7 +19,7 @@ async function EventsPage({ searchParams }: Props) {
   const totalPages = Math.ceil(count! / searchParams.pageSize)
 
   return (
-    <div>
+    <>
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Events</h1>
         <Link href="/dashboard/event/new">
@@ -33,7 +33,7 @@ async function EventsPage({ searchParams }: Props) {
         </p>
         <TablePagination page={searchParams.page} totalPages={totalPages} />
       </div>
-    </div>
+    </>
   )
 }
 
