@@ -5,6 +5,7 @@ import { type Event } from '@prisma/client'
 import Link from 'next/link'
 import DeleteButton from '../delete-button'
 import { deleteEvent } from '@/server/actions/event.action'
+import { format } from 'date-fns'
 
 interface Props {
   events: Event[]
@@ -28,7 +29,7 @@ function EventTable(props: Props) {
           {events.map((e) => (
             <TableRow key={e.id}>
               <TableCell className="font-medium">{e.name}</TableCell>
-              <TableCell>Format: date</TableCell>
+              <TableCell>{format(e.date, 'dd/MM/yyyy')}</TableCell>
               <TableCell>{e.location}</TableCell>
               <TableCell>
                 <Link href={`/dashboard/event/${e.id}`}>
