@@ -2,5 +2,6 @@ export interface CommonQuery {
   page?: number
   pageSize?: number
   search?: string
-  filter?: Record<string, unknown>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  filter?: Record<string, any>
 }
