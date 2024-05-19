@@ -1,18 +1,21 @@
 import EventForm from '@/components/forms/event-form'
 import { getEventById } from '@/server/data/event.data'
+import { type Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import React from 'react'
 
+export interface EventParams extends Params {
+  eventId: string
+}
+
 interface Props {
-  params: {
-    id: string
-  }
+  params: EventParams
 }
 
 async function EventDetailsPage({ params }: Props) {
-  const isCreate = params.id === 'new'
+  const isCreate = params.eventId === 'new'
   let data
   if (!isCreate) {
-    const { item } = await getEventById(parseInt(params.id))
+    const { item } = await getEventById(parseInt(params.eventId))
     data = item
   }
 
