@@ -32,8 +32,13 @@ function EventTable(props: Props) {
               <TableCell>{format(e.date, 'dd/MM/yyyy')}</TableCell>
               <TableCell>{e.location}</TableCell>
               <TableCell>
+                <Link href={`/dashboard/participant?event=${e.id}`}>
+                  <Button size="sm" variant="ghost">
+                    <p className="text-primary">Participants</p>
+                  </Button>
+                </Link>
                 <Link href={`/dashboard/event/${e.id}`}>
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="ghost">
                     Edit
                   </Button>
                 </Link>

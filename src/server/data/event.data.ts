@@ -1,3 +1,5 @@
+'use server'
+
 import { type CommonQuery } from 'types/query'
 import { db } from '../db'
 import { type Event } from '@prisma/client'
@@ -35,7 +37,7 @@ export const getAllEvents = async (query: CommonQuery): Promise<ReturnMany<Event
   }
 }
 
-export const getEventById = async (id: number): Promise<ReturnOne<Event>> => {
+export const getEventById = async (id: string): Promise<ReturnOne<Event>> => {
   const item = await db.event.findFirst({ where: { id } })
 
   return {

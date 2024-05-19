@@ -16,7 +16,7 @@ export const createEvent = async (event: Partial<Event>): Promise<ReturnOne<Even
   }
 }
 
-export const updateEvent = async (id: number, event: Partial<Event>): Promise<ReturnOne<Event>> => {
+export const updateEvent = async (id: string, event: Partial<Event>): Promise<ReturnOne<Event>> => {
   const item = await db.event.update({ data: event as Event, where: { id } })
 
   revalidatePath('/dashboard/event')
@@ -27,7 +27,7 @@ export const updateEvent = async (id: number, event: Partial<Event>): Promise<Re
   }
 }
 
-export const deleteEvent = async (id: number): Promise<ReturnOne<Event>> => {
+export const deleteEvent = async (id: string): Promise<ReturnOne<Event>> => {
   const item = await db.event.delete({ where: { id } })
 
   revalidatePath('/dashboard/event')
