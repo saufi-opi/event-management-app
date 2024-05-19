@@ -42,7 +42,7 @@ function EventForm(props: Props) {
         router.replace(`/dashboard/event/${response.item?.id}`)
       }
     } else {
-      await updateEvent(parseInt(params.eventId), values)
+      await updateEvent(params.eventId, values)
     }
   }
 
