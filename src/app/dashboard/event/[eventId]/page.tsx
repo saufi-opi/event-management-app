@@ -15,7 +15,7 @@ async function EventDetailsPage({ params }: Props) {
   const isCreate = params.eventId === 'new'
   let data
   if (!isCreate) {
-    const { item } = await getEventById(parseInt(params.eventId))
+    const { item } = await getEventById(params.eventId)
     data = item
   }
 
