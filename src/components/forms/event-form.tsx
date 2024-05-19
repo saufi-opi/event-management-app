@@ -15,6 +15,7 @@ import { type z } from 'zod'
 import { type Event } from '@prisma/client'
 import { createEvent, updateEvent } from '@/server/actions/event.action'
 import { Textarea } from '../ui/textarea'
+import { type EventParams } from '@/app/dashboard/event/[eventId]/page'
 
 interface Props {
   isCreate: boolean
@@ -23,20 +24,14 @@ interface Props {
 
 function EventForm(props: Props) {
   const router = useRouter()
-  const params = useParams()
+  const params = useParams<EventParams>()
 
   const form = useForm<z.infer<typeof EventZodSchema>>({
     resolver: zodResolver(EventZodSchema),
     defaultValues: props.isCreate
-      ? {
-          name: '',
-          date: new Date()
-        }
+      ? {}
       : {
-          name: props.data?.name,
-          date: props.data?.date,
-          description: props.data?.description,
-          location: props.data?.location as string | undefined
+          ...props.data
         }
   })
 
@@ -47,7 +42,7 @@ function EventForm(props: Props) {
         router.replace(`/dashboard/event/${response.item?.id}`)
       }
     } else {
-      await updateEvent(parseInt(params.id as string), values)
+      await updateEvent(parseInt(params.eventId), values)
     }
   }
 
