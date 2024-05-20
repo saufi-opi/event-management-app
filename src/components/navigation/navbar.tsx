@@ -11,7 +11,7 @@ function Navbar() {
         <Link className="flex items-center justify-center" href="/">
           <Mountain className="h-8 w-8" />
         </Link>
-        <span className="font-semibold">Event Management App</span>
+        <span className="text-xl font-semibold">Event Management App</span>
         <nav className="flex items-center gap-4 sm:gap-6">
           <Link href="/dashboard/event">
             <Button>Get Started</Button>
