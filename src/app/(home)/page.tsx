@@ -10,7 +10,7 @@ export default function HomePage() {
         <div className="grid items-center gap-8 md:grid-cols-2">
           <div className="space-y-4">
             <h1 className="text-4xl font-bold">Manage Your Upcoming Events</h1>
-            <p className="text-lg text-gray-500 dark:text-gray-400">
+            <p className="animate-pulse text-lg text-gray-500 dark:text-gray-400">
               Simplify your event planning. Keep track of all your upcoming events hassle-free
             </p>
             <div className="flex gap-4">
