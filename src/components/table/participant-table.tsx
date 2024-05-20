@@ -47,6 +47,7 @@ function ParticipantTable(props: Props) {
           ))}
         </TableBody>
       </Table>
+      {participants.length === 0 && <p className="py-2 text-center text-gray-400">No results</p>}
     </div>
   )
 }

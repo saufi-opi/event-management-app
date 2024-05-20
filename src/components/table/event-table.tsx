@@ -48,6 +48,7 @@ function EventTable(props: Props) {
           ))}
         </TableBody>
       </Table>
+      {events.length === 0 && <p className="py-2 text-center text-gray-400">No results</p>}
     </div>
   )
 }
