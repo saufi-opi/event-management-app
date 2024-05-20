@@ -29,7 +29,7 @@ async function ParticipantsPage({ searchParams }: Props) {
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Participants</h1>
         <Link href="/dashboard/participant/new">
-          <Button size="sm">Add Participant</Button>
+          <Button>Add Participant</Button>
         </Link>
       </div>
       <ParticipantTable participants={participants} />

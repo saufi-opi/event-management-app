@@ -33,14 +33,12 @@ function EventTable(props: Props) {
               <TableCell>{e.location}</TableCell>
               <TableCell>
                 <Link href={`/dashboard/participant?event=${e.id}`}>
-                  <Button size="sm" variant="ghost">
+                  <Button variant="ghost">
                     <p className="text-primary">Participants</p>
                   </Button>
                 </Link>
                 <Link href={`/dashboard/event/${e.id}`}>
-                  <Button size="sm" variant="ghost">
-                    Edit
-                  </Button>
+                  <Button variant="ghost">Edit</Button>
                 </Link>
                 <DeleteButton id={e.id} action={deleteEvent} />
               </TableCell>

@@ -98,7 +98,7 @@ function ParticipantForm(props: Props) {
             )}
           />
         </div>
-        <Button type="submit" size="sm" disabled={form.formState.isSubmitting}>
+        <Button type="submit" disabled={form.formState.isSubmitting}>
           {props.isCreate ? 'Submit' : 'Update'}
         </Button>
       </form>

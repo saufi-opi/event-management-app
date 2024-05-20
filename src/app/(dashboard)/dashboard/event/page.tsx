@@ -23,7 +23,7 @@ async function EventsPage({ searchParams }: Props) {
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Events</h1>
         <Link href="/dashboard/event/new">
-          <Button size="sm">Add Event</Button>
+          <Button>Add Event</Button>
         </Link>
       </div>
       <EventTable events={events} />

@@ -37,9 +37,7 @@ function ParticipantTable(props: Props) {
               <TableCell>{format(p.createdAt, 'dd/MM/yyyy hh:mm:ss')}</TableCell>
               <TableCell>
                 <Link href={`/dashboard/participant/${p.id}?event=${p.eventId}`}>
-                  <Button size="sm" variant="ghost">
-                    Edit
-                  </Button>
+                  <Button variant="ghost">Edit</Button>
                 </Link>
                 <DeleteButton id={p.id} action={deleteParticipant} />
               </TableCell>

@@ -15,7 +15,7 @@ function DeleteButton(props: Props) {
     }
   }
   return (
-    <Button size="sm" variant="ghost" onClick={() => handleClick()}>
+    <Button variant="ghost" onClick={() => handleClick()}>
       <p className="text-destructive">Delete</p>
     </Button>
   )
