@@ -13,7 +13,7 @@ function Navbar() {
         </Link>
         <span className="font-semibold">Event Management App</span>
         <nav className="flex items-center gap-4 sm:gap-6">
-          <Link href="/login">
+          <Link href="/dashboard/event">
             <Button>Get Started</Button>
           </Link>
         </nav>

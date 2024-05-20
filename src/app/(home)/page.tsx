@@ -1,11 +1,12 @@
+import MaxWidthWrapper from '@/components/max-width-wrapper'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function HomePage() {
   return (
-    <main className="flex-1 overflow-auto">
-      <section className="container mx-auto px-4 py-16 md:px-6">
+    <main>
+      <MaxWidthWrapper className="py-16">
         <div className="grid items-center gap-8 md:grid-cols-2">
           <div className="space-y-4">
             <h1 className="text-4xl font-bold">Manage Your Upcoming Events</h1>
@@ -13,10 +14,10 @@ export default function HomePage() {
               Simplify your event planning. Keep track of all your upcoming events hassle-free
             </p>
             <div className="flex gap-4">
-              <Link href="/login">
+              <Link href="/dashboard/event">
                 <Button>Manage Events</Button>
               </Link>
-              <Link href="/login">
+              <Link href="/dashboard/event/new">
                 <Button variant="outline">Create Event</Button>
               </Link>
             </div>
@@ -34,7 +35,7 @@ export default function HomePage() {
             />
           </div>
         </div>
-      </section>
+      </MaxWidthWrapper>
     </main>
   )
 }
