@@ -1,5 +1,5 @@
 import MaxWidthWrapper from '@/components/max-width-wrapper'
-import { Button } from '@/components/ui/button'
+import SocialMediaSignin from '@/components/social-media-signin'
 import Image from 'next/image'
 
 export default function LoginPage() {
@@ -21,16 +21,7 @@ export default function LoginPage() {
           </div>
           <div className="space-y-4">
             <p className="text-center text-xl font-bold">Please sign in to proceed</p>
-            <div className="flex flex-col items-center gap-4">
-              <Button className="w-full" variant="outline">
-                <Image className="mr-3" src="/login-google.png" alt="Google logo" width={20} height={20} />
-                Sign in with Google
-              </Button>
-              <Button className="w-full bg-blue-500 text-white hover:bg-blue-700 hover:text-white focus:bg-blue-600" variant="outline">
-                <Image className="mr-3" src="/login-fb.png" alt="Facebook logo" width={20} height={20} />
-                Sign in with Facebook
-              </Button>
-            </div>
+            <SocialMediaSignin />
           </div>
         </div>
       </MaxWidthWrapper>
