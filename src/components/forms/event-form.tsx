@@ -15,7 +15,7 @@ import { type z } from 'zod'
 import { type Event } from '@prisma/client'
 import { createEvent, updateEvent } from '@/server/actions/event.action'
 import { Textarea } from '../ui/textarea'
-import { type EventParams } from '@/app/dashboard/event/[eventId]/page'
+import { type EventParams } from '@/app/(dashboard)/dashboard/event/[eventId]/page'
 
 interface Props {
   isCreate: boolean

@@ -8,7 +8,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { ParticipantZodSchema } from 'types/zod/participant.zod'
 import { type z } from 'zod'
 import { type Participant } from '@prisma/client'
-import { type ParticipantParams } from '@/app/dashboard/participant/[participantId]/page'
+import { type ParticipantParams } from '@/app/(dashboard)/dashboard/participant/[participantId]/page'
 import { createParticipant, updateParticipant } from '@/server/actions/participant.action'
 import { SelectEvent } from '../form-items/select-event'
 
