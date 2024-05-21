@@ -8,10 +8,7 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  const session = await getToken({
-    req,
-    secret: process.env.NEXTAUTH_SECRET
-  })
+  const session = await getToken({ req })
 
   const isProtected = path.startsWith('/dashboard')
 
@@ -21,4 +18,8 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard/event', req.url))
   }
   return NextResponse.next()
+}
+
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
 }
