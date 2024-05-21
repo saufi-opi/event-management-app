@@ -15,7 +15,6 @@ interface Props {
   searchParams: SearchParams
 }
 
-// TODO: Fix when use pagination, the event query gone
 async function ParticipantsPage({ searchParams }: Props) {
   searchParams ??= {}
   searchParams.filter = { event: searchParams.event }

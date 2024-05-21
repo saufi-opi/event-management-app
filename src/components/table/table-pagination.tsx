@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import {
   Pagination,
@@ -8,6 +10,7 @@ import {
   PaginationNext,
   PaginationPrevious
 } from '../ui/pagination'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 interface Props {
   page: number
@@ -18,6 +21,10 @@ interface Props {
 const disabledStyle = 'pointer-events-none text-gray-400'
 
 function TablePagination(props: Props) {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+
   const pageNumbers: number[] = []
   const offset = props.offset ?? 2
   for (let i = props.page - offset; i <= props.page + offset; i++) {
@@ -26,11 +33,18 @@ function TablePagination(props: Props) {
     }
   }
 
+  const handlePageChange = (page: number) => {
+    const params = new URLSearchParams(searchParams)
+    params.set('page', page.toString())
+
+    router.replace(`${pathname}?${params.toString()}`)
+  }
+
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious className={props.page <= 1 ? disabledStyle : undefined} href={`?page=${props.page - 1}`} />
+          <PaginationPrevious className={props.page <= 1 ? disabledStyle : undefined} onClick={() => handlePageChange(props.page - 1)} />
         </PaginationItem>
         {props.page - offset > 1 && (
           <PaginationItem>
@@ -39,7 +53,7 @@ function TablePagination(props: Props) {
         )}
         {pageNumbers.map((page) => (
           <PaginationItem key={page}>
-            <PaginationLink href={`?page=${page}`} isActive={props.page === page}>
+            <PaginationLink onClick={() => handlePageChange(page)} isActive={props.page === page}>
               {page}
             </PaginationLink>
           </PaginationItem>
@@ -50,7 +64,7 @@ function TablePagination(props: Props) {
           </PaginationItem>
         )}
         <PaginationItem>
-          <PaginationNext className={props.page >= props.totalPages ? disabledStyle : undefined} href={`?page=${props.page + 1}`} />
+          <PaginationNext className={props.page >= props.totalPages ? disabledStyle : undefined} onClick={() => handlePageChange(props.page + 1)} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
