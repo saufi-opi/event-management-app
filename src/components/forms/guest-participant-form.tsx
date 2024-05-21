@@ -9,6 +9,7 @@ import { ParticipantZodSchema } from 'types/zod/participant.zod'
 import { type z } from 'zod'
 import { createParticipant } from '@/server/actions/participant.action'
 import { useState } from 'react'
+import Link from 'next/link'
 
 interface Props {
   eventId: string
@@ -52,6 +53,9 @@ function GuestParticipantForm(props: Props) {
           </svg>
         </div>
         <p className="mt-6 text-center text-xl font-medium text-gray-500 dark:text-gray-400">Your participation has been recorded</p>
+        <Link href="/">
+          <Button className="mt-5">Home</Button>
+        </Link>
       </div>
     </div>
   ) : (
