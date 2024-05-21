@@ -16,6 +16,7 @@ import { type Event } from '@prisma/client'
 import { createEvent, updateEvent } from '@/server/actions/event.action'
 import { Textarea } from '../ui/textarea'
 import { type EventParams } from '@/app/(dashboard)/dashboard/event/[eventId]/page'
+import { useToast } from '../ui/use-toast'
 
 interface Props {
   isCreate: boolean
@@ -25,6 +26,7 @@ interface Props {
 function EventForm(props: Props) {
   const router = useRouter()
   const params = useParams<EventParams>()
+  const { toast } = useToast()
 
   const form = useForm<z.infer<typeof EventZodSchema>>({
     resolver: zodResolver(EventZodSchema),
@@ -36,13 +38,18 @@ function EventForm(props: Props) {
   })
 
   async function onSubmit(values: z.infer<typeof EventZodSchema>) {
+    let response
     if (props.isCreate) {
-      const response = await createEvent(values)
-      if (response.success) {
-        router.replace(`/dashboard/event/${response.item?.id}`)
-      }
+      response = await createEvent(values)
     } else {
-      await updateEvent(params.eventId, values)
+      response = await updateEvent(params.eventId, values)
+    }
+
+    if (response.success) {
+      toast({ title: 'Success', variant: 'success' })
+      router.replace(`/dashboard/event/${response.item?.id}`)
+    } else {
+      toast({ title: 'Failed', description: response.message, variant: 'destructive' })
     }
   }
 

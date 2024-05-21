@@ -10,6 +10,7 @@ import { type z } from 'zod'
 import { createParticipant } from '@/server/actions/participant.action'
 import { useState } from 'react'
 import Link from 'next/link'
+import { useToast } from '../ui/use-toast'
 
 interface Props {
   eventId: string
@@ -23,13 +24,14 @@ function GuestParticipantForm(props: Props) {
       eventId: props.eventId
     }
   })
+  const { toast } = useToast()
 
   async function onSubmit(values: z.infer<typeof ParticipantZodSchema>) {
     const response = await createParticipant(values)
     if (response.success) {
       setSuccess(true)
     } else {
-      alert(JSON.stringify(response))
+      toast({ title: 'Failed', description: response.message, variant: 'destructive' })
     }
   }
 

@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/toaster'
 import NextAuthProvider from '@/providers/next-auth-provider'
 import '@/styles/globals.css'
 
@@ -13,6 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
+        <Toaster />
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>
     </html>
