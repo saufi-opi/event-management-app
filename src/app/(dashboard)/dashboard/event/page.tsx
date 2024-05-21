@@ -5,6 +5,7 @@ import EventTable from '@/components/table/event-table'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import TablePagination from '@/components/table/table-pagination'
+import Search from '@/components/search'
 
 interface Props {
   searchParams: CommonQuery
@@ -22,9 +23,12 @@ async function EventsPage({ searchParams }: Props) {
     <>
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Events</h1>
-        <Link href="/dashboard/event/new">
-          <Button>Add Event</Button>
-        </Link>
+        <div className="flex w-2/3 items-center gap-5">
+          <Search />
+          <Link href="/dashboard/event/new">
+            <Button>Add Event</Button>
+          </Link>
+        </div>
       </div>
       <EventTable events={events} />
       <div className="pt-5">
