@@ -5,6 +5,7 @@ import Googleprovider from 'next-auth/providers/google'
 
 import { env } from '@/env'
 import { db } from '@/server/db'
+import { type User } from '@prisma/client'
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -27,20 +28,46 @@ declare module 'next-auth' {
   // }
 }
 
+declare module 'next-auth/jwt' {
+  interface JWT {
+    user: User
+  }
+}
+
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: 'jwt'
+  },
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id
+    async jwt({ token }) {
+      let user = await db.user.findFirst({ where: { email: token.email } })
+      if (!user) {
+        user = await db.user.create({
+          data: {
+            name: token.name,
+            email: token.email,
+            image: token.picture
+          }
+        })
       }
-    })
+
+      token.user = user
+      return token
+    },
+    session: ({ session, token }) => {
+      console.log('session ', token)
+      session.user = {
+        ...session.user,
+        id: token.user.id
+      }
+
+      return session
+    }
   },
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
