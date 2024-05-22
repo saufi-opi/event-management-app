@@ -6,6 +6,7 @@ import Link from 'next/link'
 import DeleteButton from '../delete-button'
 import { deleteEvent } from '@/server/actions/event.action'
 import { format } from 'date-fns'
+import { CornerDownRight } from 'lucide-react'
 
 interface Props {
   events: Event[]
@@ -23,6 +24,7 @@ function EventTable(props: Props) {
             <TableHead>Date</TableHead>
             <TableHead>Location</TableHead>
             <TableHead>Actions</TableHead>
+            <TableHead>Guest Link</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -41,6 +43,13 @@ function EventTable(props: Props) {
                   <Button variant="ghost">Edit</Button>
                 </Link>
                 <DeleteButton id={e.id} action={deleteEvent} />
+              </TableCell>
+              <TableCell>
+                <Link href={`/participate/${e.id}`} target="_blank">
+                  <Button variant="ghost">
+                    <CornerDownRight className="h-5 w-5" />
+                  </Button>
+                </Link>
               </TableCell>
             </TableRow>
           ))}
