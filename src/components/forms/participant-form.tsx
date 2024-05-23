@@ -62,7 +62,7 @@ function ParticipantForm(props: Props) {
               <FormItem className="col-span-2 lg:col-span-1">
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value.toUpperCase()} disabled={form.formState.isSubmitting} />
+                  <Input {...field} value={field.value?.toUpperCase()} disabled={form.formState.isSubmitting} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -75,7 +75,7 @@ function ParticipantForm(props: Props) {
               <FormItem className="col-span-2 lg:col-span-1">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} type="email" value={field.value.toLowerCase()} disabled={form.formState.isSubmitting} />
+                  <Input {...field} type="email" value={field.value?.toLowerCase()} disabled={form.formState.isSubmitting} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
