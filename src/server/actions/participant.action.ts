@@ -4,13 +4,14 @@ import { revalidatePath } from 'next/cache'
 import { db } from '../db'
 import { type Participant } from '@prisma/client'
 import { type ReturnOne } from 'types/response'
+import { getErrorMessage } from '../error'
 
 export const createParticipant = async (participant: Partial<Participant>): Promise<ReturnOne<Participant>> => {
   try {
     const dupEmail = await db.participant.findFirst({ where: { email: participant.email, eventId: participant.eventId } })
-    if (dupEmail) throw 'duplicate-email'
+    if (dupEmail) throw `Email "${participant.email}" has been registered for this event`
     const dupPhone = await db.participant.findFirst({ where: { phone: participant.phone, eventId: participant.eventId } })
-    if (dupPhone) throw 'duplicate-phone'
+    if (dupPhone) throw `Phone number "${participant.phone}" has been registered for this event`
 
     const item = await db.participant.create({ data: participant as Participant })
     revalidatePath('/dashboard/participant')
@@ -20,7 +21,8 @@ export const createParticipant = async (participant: Partial<Participant>): Prom
     }
   } catch (error) {
     return {
-      success: false
+      success: false,
+      message: getErrorMessage(error)
     }
   }
 }
