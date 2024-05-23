@@ -11,6 +11,7 @@ import { type Participant } from '@prisma/client'
 import { type ParticipantParams } from '@/app/(dashboard)/dashboard/participant/[participantId]/page'
 import { createParticipant, updateParticipant } from '@/server/actions/participant.action'
 import { SelectEvent } from '../form-items/select-event'
+import { toast } from '../ui/use-toast'
 
 interface Props {
   isCreate: boolean
@@ -35,9 +36,18 @@ function ParticipantForm(props: Props) {
       const response = await createParticipant(values)
       if (response.success) {
         router.replace(`/dashboard/participant/${response.item?.id}`)
+        toast({ title: 'Created' })
+      } else {
+        toast({ title: 'Failed', description: response.message, variant: 'destructive' })
       }
     } else {
-      await updateParticipant(params.participantId, values)
+      const response = await updateParticipant(params.participantId, values)
+      if (response.success) {
+        router.replace(`/dashboard/participant/${response.item?.id}`)
+        toast({ title: 'Updated' })
+      } else {
+        toast({ title: 'Failed', description: response.message, variant: 'destructive' })
+      }
     }
   }
 
