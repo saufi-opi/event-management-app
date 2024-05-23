@@ -47,7 +47,7 @@ function EventForm(props: Props) {
 
     if (response.success) {
       toast({ title: 'Success', variant: 'success' })
-      router.replace(`/dashboard/event/${response.item?.id}`)
+      router.push('/dashboard/event')
     } else {
       toast({ title: 'Failed', description: response.message, variant: 'destructive' })
     }
