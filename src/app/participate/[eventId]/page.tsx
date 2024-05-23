@@ -11,7 +11,9 @@ async function GuestParticipatePage({ params }: Props) {
   const { eventId } = params
   const { item: event } = await getEventById(eventId)
 
-  if (!event) {
+  const now = new Date()
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  if (!event || event.date < today) {
     return notFound()
   }
 
