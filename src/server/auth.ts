@@ -54,6 +54,8 @@ export const authOptions: NextAuthOptions = {
             image: token.picture
           }
         })
+      } else {
+        user = await db.user.update({ where: { id: user.id }, data: { name: token.name, email: token.email, image: token.picture } })
       }
 
       token.user = user
