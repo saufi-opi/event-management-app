@@ -36,7 +36,7 @@ function ParticipantForm(props: Props) {
       const response = await createParticipant(values)
       if (response.success) {
         router.replace(`/dashboard/participant/${response.item?.id}`)
-        toast({ title: 'Created' })
+        toast({ title: 'Created', variant: 'success' })
       } else {
         toast({ title: 'Failed', description: response.message, variant: 'destructive' })
       }
@@ -44,7 +44,7 @@ function ParticipantForm(props: Props) {
       const response = await updateParticipant(params.participantId, values)
       if (response.success) {
         router.replace(`/dashboard/participant/${response.item?.id}`)
-        toast({ title: 'Updated' })
+        toast({ title: 'Updated', variant: 'success' })
       } else {
         toast({ title: 'Failed', description: response.message, variant: 'destructive' })
       }
