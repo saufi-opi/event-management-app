@@ -28,19 +28,29 @@ export const createParticipant = async (participant: Partial<Participant>): Prom
 }
 
 export const updateParticipant = async (id: string, participant: Partial<Participant>): Promise<ReturnOne<Participant>> => {
-  const item = await db.participant.update({ data: participant as Participant, where: { id } })
+  try {
+    const dupEmail = await db.participant.findFirst({ where: { email: participant.email, eventId: participant.eventId, id: { not: id } } })
+    if (dupEmail) throw `Email "${participant.email}" has been registered for this event`
+    const dupPhone = await db.participant.findFirst({ where: { phone: participant.phone, eventId: participant.eventId, id: { not: id } } })
+    if (dupPhone) throw `Phone number "${participant.phone}" has been registered for this event`
 
-  revalidatePath('/dashboard/participant')
+    const item = await db.participant.update({ data: participant as Participant, where: { id } })
+    revalidatePath('/dashboard/participant')
 
-  return {
-    success: true,
-    item
+    return {
+      success: true,
+      item
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: getErrorMessage(error)
+    }
   }
 }
 
 export const deleteParticipant = async (id: string): Promise<ReturnOne<Participant>> => {
   const item = await db.participant.delete({ where: { id } })
-
   revalidatePath('/dashboard/participant')
 
   return {
