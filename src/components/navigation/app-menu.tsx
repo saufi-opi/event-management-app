@@ -1,4 +1,4 @@
-import { Book, PersonStanding, Settings } from 'lucide-react'
+import { Book, PersonStanding } from 'lucide-react'
 import React from 'react'
 import NavLink from './nav-link'
 
@@ -19,11 +19,6 @@ function AppMenu() {
       title: 'Participants',
       href: '/dashboard/participant',
       icon: <PersonStanding />
-    },
-    {
-      title: 'Profile',
-      href: '/dashboard/profile',
-      icon: <Settings />
     }
   ]
   return (
