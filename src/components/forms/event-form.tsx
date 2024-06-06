@@ -18,7 +18,7 @@ import { Textarea } from '../ui/textarea'
 import { type EventParams } from '@/app/(dashboard)/dashboard/event/[eventId]/page'
 import { useToast } from '../ui/use-toast'
 import { env } from '@/env'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useJsApiLoader } from '@react-google-maps/api'
 
 interface Props {
@@ -30,6 +30,7 @@ function EventForm(props: Props) {
   const router = useRouter()
   const params = useParams<EventParams>()
   const autocompleteRef = useRef<HTMLInputElement>(null)
+  const [autoComplete, setAutoComplete] = useState<google.maps.places.Autocomplete | null>(null)
   const { toast } = useToast()
 
   const form = useForm<z.infer<typeof EventZodSchema>>({
@@ -64,12 +65,22 @@ function EventForm(props: Props) {
 
   useEffect(() => {
     if (isLoaded && autocompleteRef.current) {
-      new google.maps.places.Autocomplete(autocompleteRef.current, {
+      const newAutocomplete = new google.maps.places.Autocomplete(autocompleteRef.current, {
         componentRestrictions: { country: 'my' },
         fields: ['formatted_address']
       })
+      setAutoComplete(newAutocomplete)
     }
   }, [autocompleteRef, isLoaded])
+
+  useEffect(() => {
+    if (autoComplete) {
+      autoComplete.addListener('place_changed', () => {
+        const place = autoComplete.getPlace()
+        form.setValue('location', place.formatted_address!)
+      })
+    }
+  }, [autoComplete, form])
 
   return (
     <Form {...form}>
