@@ -17,6 +17,9 @@ import { createEvent, updateEvent } from '@/server/actions/event.action'
 import { Textarea } from '../ui/textarea'
 import { type EventParams } from '@/app/(dashboard)/dashboard/event/[eventId]/page'
 import { useToast } from '../ui/use-toast'
+import { env } from '@/env'
+import { useEffect, useRef } from 'react'
+import { useJsApiLoader } from '@react-google-maps/api'
 
 interface Props {
   isCreate: boolean
@@ -26,6 +29,7 @@ interface Props {
 function EventForm(props: Props) {
   const router = useRouter()
   const params = useParams<EventParams>()
+  const autocompleteRef = useRef<HTMLInputElement>(null)
   const { toast } = useToast()
 
   const form = useForm<z.infer<typeof EventZodSchema>>({
@@ -52,6 +56,20 @@ function EventForm(props: Props) {
       toast({ title: 'Failed', description: response.message, variant: 'destructive' })
     }
   }
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY,
+    libraries: ['places']
+  })
+
+  useEffect(() => {
+    if (isLoaded && autocompleteRef.current) {
+      new google.maps.places.Autocomplete(autocompleteRef.current, {
+        componentRestrictions: { country: 'my' },
+        fields: ['formatted_address']
+      })
+    }
+  }, [autocompleteRef, isLoaded])
 
   return (
     <Form {...form}>
@@ -117,7 +135,7 @@ function EventForm(props: Props) {
               <FormItem className="col-span-2">
                 <FormLabel>Event Location</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled={form.formState.isSubmitting} />
+                  <Input {...field} disabled={form.formState.isSubmitting} ref={autocompleteRef} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

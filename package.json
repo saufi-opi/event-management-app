@@ -16,6 +16,7 @@
     "@auth/prisma-adapter": "^1.4.0",
     "@casl/ability": "^6.7.1",
     "@casl/prisma": "^1.4.1",
+    "@googlemaps/js-api-loader": "^1.16.6",
     "@hookform/resolvers": "^3.4.0",
     "@prisma/client": "^5.10.2",
     "@radix-ui/react-avatar": "^1.0.4",
@@ -24,6 +25,7 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
+    "@react-google-maps/api": "^2.19.3",
     "@t3-oss/env-nextjs": "^0.10.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -43,6 +45,7 @@
   },
   "devDependencies": {
     "@types/eslint": "^8.56.2",
+    "@types/google.maps": "^3.55.9",
     "@types/node": "^20.11.20",
     "@types/react": "^18.2.57",
     "@types/react-dom": "^18.2.19",
